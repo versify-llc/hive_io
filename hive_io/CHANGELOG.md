@@ -1,3 +1,6 @@
+### 3.2.1
+- Correct README install versions
+
 ### 3.2.0
 - Update dependencies
 

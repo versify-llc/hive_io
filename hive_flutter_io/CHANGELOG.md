@@ -1,3 +1,6 @@
+### 3.2.0
+- Update dependencies
+
 ### 3.0.3
 - Update LICENSE
 
