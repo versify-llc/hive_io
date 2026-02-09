@@ -6,7 +6,7 @@ Hive is a lightweight and blazing fast key-value database written in pure Dart.
 - 🔒 Encryption built in
 - 🎈 No native dependencies
 
-👉 The original Hive project is abandoned. Hive_IO is a clone (minus web support) to keep everything working with newer versions of Flutter and Dart. I'm not planning to add any new features. Checkout [hive_ce](https://pub.dev/packages/hive_ce) if you're looking for:
+👉 The original Hive project is abandoned. Hive_IO is a fork (minus web support) to keep everything working with newer versions of Flutter and Dart. I'm not planning to add any new features. Checkout [hive_ce](https://pub.dev/packages/hive_ce) if you're looking for:
 
 - Multi-isolate support
 - Web support
@@ -28,7 +28,7 @@ Add the `hive_io` packages to your `pubspec.yaml`
 
 ```yaml
 dependencies:
-  hive_io: ^3.0.3
+  hive_io: ^3.1.0
   hive_flutter: ^3.0.3
 
 dev_dependencies:
