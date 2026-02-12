@@ -29,10 +29,10 @@ Add the `hive_io` packages to your `pubspec.yaml`
 ```yaml
 dependencies:
   hive_io: ^3.2.1
-  hive_flutter: ^3.2.0
+  hive_flutter: ^3.2.1
 
 dev_dependencies:
-  hive_generator_io: ^3.2.0
+  hive_generator_io: ^3.2.1
 ```
 
 ### Generate type adapters
