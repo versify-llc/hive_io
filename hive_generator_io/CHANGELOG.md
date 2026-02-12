@@ -1,4 +1,7 @@
-### 3.2.0
+### 3.2.2
+- Update CHANGELOG
+
+### 3.2.1
 - Update dependencies
 
 ### 3.1.0

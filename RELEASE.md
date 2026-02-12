@@ -1,7 +1,6 @@
 # Release Checklist
 
-- Create new branch
 - Update version in `pubspec.yaml`
 - Update install version in `README.md`
 - Update `CHANGELOG.md`
-- Run `dart pub publish` (hive_io first)
+- Run `dart pub publish`
