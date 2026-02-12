@@ -1,6 +1,6 @@
 name: hive_generator_io
 description: Fork of the original hive_generator project. Updated to support latest versions of Dart and Flutter!
-version: 3.1.0
+version: 3.2.0
 homepage: https://github.com/versify-llc/hive_io
 repository: https://github.com/versify-llc/hive_io/tree/main/hive_generator_io
 

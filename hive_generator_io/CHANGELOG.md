@@ -1,3 +1,6 @@
+### 3.2.0
+- Update dependencies
+
 ### 3.1.0
 - Update `analyzer` to `9.0.0`
 - Update other packages to latest
