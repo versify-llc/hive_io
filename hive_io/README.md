@@ -28,16 +28,16 @@ Add the `hive_io` packages to your `pubspec.yaml`
 
 ```yaml
 dependencies:
-  hive_io: ^3.2.2
-  hive_flutter: ^3.2.2
+  hive_io: ^3.3.0
+  hive_flutter: ^3.3.0
 
 dev_dependencies:
-  hive_generator_io: ^3.2.2
+  hive_generator_io: ^3.3.0
 ```
 
 ### Generate type adapters
 
-Hive supports primitives, lists, maps, and any Dart object you want. However, you will need to generate a type adapter before you can store objects. 
+Hive supports primitives, lists, maps, and any Dart object you want. However, you will need to generate a type adapter before you can store objects.
 
 Here is an example:
 
@@ -55,8 +55,8 @@ class Person {
   bool isVIP;
 
   Person({
-    required this.id, 
-    this.name, 
+    required this.id,
+    this.name,
     this.isVIP = false,
   });
 }
