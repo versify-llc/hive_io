@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         test-platform: [vm]
-        dart-channel: ["3.8.0"]
+        dart-channel: ["3.12.0"]
     steps:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1
@@ -30,8 +30,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: "temurin"
+          java-version: "17"
       - uses: subosito/flutter-action@v2
         with:
           channel: ${{ matrix.flutter-channel }}
@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dart-channel: ["3.9.0"]
+        dart-channel: ["3.12.0"]
     steps:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1
