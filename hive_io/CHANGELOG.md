@@ -1,6 +1,6 @@
 ### 3.3.0
 
-- **BREAKING**: Remove the experimental `HiveList`/`HiveCollection` API and the `hiveListT` binary type
+- **BREAKING**: Remove `HiveList`/`HiveCollection` API
 - Upgrade packages for dart 3.12
 - Update CHANGELOG for skipped versions
 - Update README
