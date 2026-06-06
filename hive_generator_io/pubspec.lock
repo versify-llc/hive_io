@@ -204,11 +204,10 @@ packages:
   hive_io:
     dependency: "direct main"
     description:
-      name: hive_io
-      sha256: de5a64b6e4df9707dd8ab08a68a86efcce3633ac4be1abc4f39770a0e68b909e
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.2"
+      path: "../hive_io"
+      relative: true
+    source: path
+    version: "3.3.0"
   html:
     dependency: transitive
     description:

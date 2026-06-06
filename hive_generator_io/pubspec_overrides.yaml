@@ -1,0 +1,6 @@
+# Local development override so this package builds against the in-repo
+# hive_io source. This file is read by `pub` for local resolution only and is
+# excluded from `dart pub publish`, so it does not affect published packages.
+dependency_overrides:
+  hive_io:
+    path: ../hive_io
