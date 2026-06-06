@@ -29,9 +29,10 @@ Add the `hive_io` packages to your `pubspec.yaml`
 ```yaml
 dependencies:
   hive_io: ^3.3.0
-  hive_flutter: ^3.3.0
+  hive_flutter_io: ^3.3.0
 
 dev_dependencies:
+  build_runner: ^2.4.0
   hive_generator_io: ^3.3.0
 ```
 
@@ -127,4 +128,103 @@ class SettingsPage extends StatelessWidget {
     );
   }
 }
+```
+
+### Pure Dart setup
+
+`hive_io` has no Flutter dependency, so you can use it in a plain Dart app too. Skip `hive_flutter_io` and initialize Hive with a directory of your choice:
+
+```dart
+Future<void> main() async {
+  // Point Hive at any directory where your boxes should live.
+  Hive.init('path/to/hive');
+
+  Hive.registerAdapter(PersonAdapter());
+
+  final box = await Hive.openBox<Person>('person');
+
+  ...
+}
+```
+
+`Hive.initFlutter(...)` is just a convenience from `hive_flutter_io` that calls `Hive.init` with your app's documents directory.
+
+## Important APIs
+
+### Type adapters
+
+Type adapters teach Hive how to read and write your objects. A few rules are worth knowing up front:
+
+- Every `@HiveType` needs a `typeId` that is **unique** across your app and in the range **0–223**.
+- `typeId`s and `@HiveField` indices are written to disk. Once data exists, never reuse or change them. To drop a field, retire its index and don't reuse it.
+- Add `defaultValue` to a `@HiveField` so old records stay readable after you introduce a new field.
+- Adapters must be registered with `Hive.registerAdapter(...)` **before** you open a box that uses them.
+
+### HiveObjects
+
+If your model extends `HiveObject` (or mixes in `HiveObjectMixin`), each instance remembers the box and key it was stored under. That gives you handy `save()` and `delete()` methods.
+
+```dart
+@HiveType(typeId: 0)
+class Person extends HiveObject {
+  @HiveField(0)
+  String? name;
+
+  Person({this.name});
+}
+
+final person = Person(name: 'David');
+await box.add(person); // stored with an auto-increment key
+
+person.name = 'David B.';
+await person.save();   // updates the entry in place
+
+await person.delete(); // removes it from the box
+```
+
+### Common box operations
+
+A box behaves a lot like a map. Writes are asynchronous, but the new values are available immediately, so you rarely need to await them.
+
+```dart
+box.put('key', value);           // add or update
+box.putAll({'a': v1, 'b': v2});  // batch write
+final id = await box.add(value); // auto-increment integer key
+
+box.get('key', defaultValue: fallback);
+box.getAt(0);                    // by index
+
+box.containsKey('key');
+box.keys;                        // all keys (sorted ascending)
+box.values;                      // all values
+box.length;
+
+box.delete('key');
+box.deleteAll(['a', 'b']);
+await box.clear();               // remove everything
+```
+
+### Encryption 🔒
+
+Hive can transparently encrypt a box with AES-256. Generate a key once, store it somewhere safe (for example `flutter_secure_storage`), and pass a `HiveAesCipher` when you open the box.
+
+```dart
+// Generate a secure 256-bit key. Do this once and persist it securely.
+final key = Hive.generateSecureKey();
+
+final box = await Hive.openBox<Person>(
+  'person',
+  encryptionCipher: HiveAesCipher(key),
+);
+```
+
+Read and write to the box exactly as you normally would — encryption and decryption happen behind the scenes.
+
+### Closing and cleaning up
+
+Boxes stay open until you close them. You usually don't need to close them manually, but it's good practice on shutdown:
+
+```dart
+await box.close();             // close a single box
+await Hive.close();            // close every open box
 ```
