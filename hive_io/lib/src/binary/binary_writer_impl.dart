@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'package:hive_io/hive_io.dart';
 import 'package:hive_io/src/binary/frame.dart';
 import 'package:hive_io/src/crypto/crc32.dart';
-import 'package:hive_io/src/object/hive_list_impl.dart';
 import 'package:hive_io/src/registry/type_registry_impl.dart';
 import 'package:hive_io/src/util/extensions.dart';
 import 'package:meta/meta.dart';
@@ -247,21 +246,6 @@ class BinaryWriterImpl extends BinaryWriter {
     }
   }
 
-  @override
-  void writeHiveList(HiveList list, {bool writeLength = true}) {
-    ArgumentError.checkNotNull(list);
-
-    if (writeLength) {
-      writeUint32(list.length);
-    }
-    final boxName = (list as HiveListImpl).boxName;
-    writeByte(boxName.length);
-    _addBytes(boxName.codeUnits);
-    for (final obj in list) {
-      writeKey(obj.key);
-    }
-  }
-
   /// Not part of public API
   int writeFrame(Frame frame, {HiveCipher? cipher}) {
     ArgumentError.checkNotNull(frame);
@@ -344,12 +328,7 @@ class BinaryWriterImpl extends BinaryWriter {
 
   @pragma('vm:prefer-inline')
   void _writeList(List value, {bool writeTypeId = true}) {
-    if (value is HiveList) {
-      if (writeTypeId) {
-        writeByte(FrameValueType.hiveListT);
-      }
-      writeHiveList(value);
-    } else if (value.contains(null)) {
+    if (value.contains(null)) {
       if (writeTypeId) {
         writeByte(FrameValueType.listT);
       }

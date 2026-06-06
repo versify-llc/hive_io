@@ -143,7 +143,4 @@ class FrameValueType {
 
   /// `Map<dynamic, dynamic>`
   static const mapT = 11;
-
-  /// `List<HiveObject>`
-  static const hiveListT = 12;
 }

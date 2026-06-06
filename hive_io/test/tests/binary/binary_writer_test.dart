@@ -1,15 +1,11 @@
 import 'dart:typed_data';
 
-import 'package:hive_io/hive_io.dart';
 import 'package:hive_io/src/binary/binary_writer_impl.dart';
 import 'package:hive_io/src/binary/frame.dart';
-import 'package:hive_io/src/object/hive_object.dart';
 import 'package:hive_io/src/registry/type_registry_impl.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../frames.dart';
-import '../mocks.dart';
 
 List<int> bytes(ByteData byteData) => byteData.buffer.asUint8List();
 
@@ -387,35 +383,6 @@ void main() {
       ]);
     });
 
-    group('.writeHiveList()', () {
-      final box = MockBox();
-      when(() => box.name).thenReturn('Box');
-
-      final obj = TestHiveObject()..init('key', box);
-
-      test('write length', () {
-        final list = HiveList(box, objects: [obj]);
-        final bw = getWriter();
-        bw.writeHiveList(list);
-
-        expect(bw.toBytes(), [
-          1, 0, 0, 0, 3, 66, 111, 120, //
-          1, 3, 107, 101, 121, //
-        ]);
-      });
-
-      test('omit length', () {
-        final list = HiveList(box, objects: [obj]);
-        final bw = getWriter();
-        bw.writeHiveList(list, writeLength: false);
-
-        expect(bw.toBytes(), [
-          3, 66, 111, 120, //
-          1, 3, 107, 101, 121, //
-        ]);
-      });
-    });
-
     group('.writeFrame()', () {
       test('normal', () {
         for (var i = 0; i < testFrames.length; i++) {
@@ -492,22 +459,6 @@ void main() {
         bw = getWriter();
         bw.write('hi');
         expect(bw.toBytes(), [FrameValueType.stringT, 2, 0, 0, 0, 0x68, 0x69]);
-      });
-
-      test('HiveList', () {
-        final box = MockBox();
-        when(() => box.name).thenReturn('Box');
-
-        final obj = TestHiveObject()..init('key', box);
-        final list = HiveList(box, objects: [obj]);
-        final bw = getWriter();
-        bw.write(list);
-
-        expect(bw.toBytes(), [
-          FrameValueType.hiveListT,
-          1, 0, 0, 0, 3, 66, 111, 120, //
-          1, 3, 107, 101, 121, //
-        ]);
       });
 
       test('byte list', () {

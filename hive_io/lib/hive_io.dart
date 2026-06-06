@@ -13,8 +13,6 @@ import 'package:hive_io/src/box/default_key_comparator.dart';
 import 'package:hive_io/src/crypto/aes_cbc_pkcs7.dart';
 import 'package:hive_io/src/crypto/crc32.dart';
 import 'package:hive_io/src/hive_impl.dart';
-import 'package:hive_io/src/object/hive_list_impl.dart';
-import 'package:hive_io/src/object/hive_object.dart';
 import 'package:hive_io/src/util/extensions.dart';
 import 'package:meta/meta.dart';
 
@@ -31,8 +29,6 @@ part 'src/crypto/hive_aes_cipher.dart';
 part 'src/crypto/hive_cipher.dart';
 part 'src/hive.dart';
 part 'src/hive_error.dart';
-part 'src/object/hive_collection.dart';
-part 'src/object/hive_list.dart';
 part 'src/registry/type_adapter.dart';
 part 'src/registry/type_registry.dart';
 

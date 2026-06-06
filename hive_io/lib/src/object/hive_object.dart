@@ -1,8 +1,6 @@
 library;
 
 import 'package:hive_io/hive_io.dart';
-import 'package:hive_io/src/object/hive_list_impl.dart';
-import 'package:meta/meta.dart';
 
 part 'hive_object_internal.dart';
 
@@ -12,9 +10,6 @@ mixin HiveObjectMixin {
   BoxBase? _box;
 
   dynamic _key;
-
-  // HiveLists containing this object
-  final _hiveLists = <HiveList, int>{};
 
   /// Get the box in which this object is stored. Returns `null` if object has
   /// not been added to a box yet.

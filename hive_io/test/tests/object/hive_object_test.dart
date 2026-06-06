@@ -64,46 +64,6 @@ void main() {
         expect(obj.key, null);
         expect(obj.box, null);
       });
-
-      test('notifies remote HiveLists', () {
-        final obj = TestHiveObject();
-        final box = MockBox();
-        obj.init('key', box);
-
-        final list = MockHiveListImpl();
-        obj.linkHiveList(list);
-        obj.dispose();
-
-        verify(list.invalidate);
-      });
-    });
-
-    test('.linkHiveList()', () {
-      final box = MockBox();
-      final obj = TestHiveObject();
-      obj.init('key', box);
-      final hiveList = MockHiveListImpl();
-
-      obj.linkHiveList(hiveList);
-      expect(obj.debugHiveLists, {hiveList: 1});
-      obj.linkHiveList(hiveList);
-      expect(obj.debugHiveLists, {hiveList: 2});
-    });
-
-    test('.unlinkHiveList()', () {
-      final box = MockBox();
-      final obj = TestHiveObject();
-      obj.init('key', box);
-      final hiveList = MockHiveListImpl();
-
-      obj.linkHiveList(hiveList);
-      obj.linkHiveList(hiveList);
-      expect(obj.debugHiveLists, {hiveList: 2});
-
-      obj.unlinkHiveList(hiveList);
-      expect(obj.debugHiveLists, {hiveList: 1});
-      obj.unlinkHiveList(hiveList);
-      expect(obj.debugHiveLists, {});
     });
 
     group('.save()', () {

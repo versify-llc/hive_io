@@ -6,13 +6,11 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:collection/collection.dart';
 import 'package:hive_generator_io/src/builders/builder.dart';
 import 'package:hive_generator_io/src/helpers/helpers.dart';
-import 'package:hive_io/hive_io.dart';
 import 'package:source_gen/source_gen.dart';
 
 class ClassBuilder extends Builder {
   ClassBuilder(super.cls, super.getters, super.setters);
 
-  TypeChecker hiveListChecker = const TypeChecker.typeNamed(HiveList);
   TypeChecker listChecker = const TypeChecker.typeNamed(List);
   TypeChecker mapChecker = const TypeChecker.typeNamed(Map);
   TypeChecker setChecker = const TypeChecker.typeNamed(Set);
@@ -98,10 +96,7 @@ class ClassBuilder extends Builder {
   String _cast(DartType type, String variable) {
     final suffix = _suffixFromType(type);
 
-    if (hiveListChecker.isAssignableFromType(type)) {
-      return '($variable as HiveList$suffix)$suffix.castHiveList()';
-    } else if (iterableChecker.isAssignableFromType(type) &&
-        !isUint8List(type)) {
+    if (iterableChecker.isAssignableFromType(type) && !isUint8List(type)) {
       return '($variable as List$suffix)${_castIterable(type)}';
     } else if (mapChecker.isAssignableFromType(type)) {
       return '($variable as Map$suffix)${_castMap(type)}';

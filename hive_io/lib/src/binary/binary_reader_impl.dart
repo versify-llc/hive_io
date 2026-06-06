@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'package:hive_io/hive_io.dart';
 import 'package:hive_io/src/binary/frame.dart';
 import 'package:hive_io/src/crypto/crc32.dart';
-import 'package:hive_io/src/object/hive_list_impl.dart';
 import 'package:hive_io/src/registry/type_registry_impl.dart';
 import 'package:hive_io/src/util/extensions.dart';
 
@@ -223,19 +222,6 @@ class BinaryReaderImpl extends BinaryReader {
     }
   }
 
-  @override
-  HiveList readHiveList([int? length]) {
-    length ??= readUint32();
-    final boxNameLength = readByte();
-    final boxName = String.fromCharCodes(viewBytes(boxNameLength));
-    final keys = List<dynamic>.filled(length, null, growable: true);
-    for (var i = 0; i < length; i++) {
-      keys[i] = readKey();
-    }
-
-    return HiveListImpl.lazy(boxName, keys);
-  }
-
   /// Not part of public API
   Frame? readFrame({
     HiveCipher? cipher,
@@ -316,8 +302,6 @@ class BinaryReaderImpl extends BinaryReader {
         return readList();
       case FrameValueType.mapT:
         return readMap();
-      case FrameValueType.hiveListT:
-        return readHiveList();
       default:
         final resolved = _typeRegistry.findAdapterForTypeId(typeId);
         if (resolved == null) {

@@ -6,7 +6,6 @@ import 'package:hive_io/src/box/change_notifier.dart';
 import 'package:hive_io/src/box/keystore.dart';
 import 'package:hive_io/src/hive_impl.dart';
 import 'package:hive_io/src/io/frame_io_helper.dart';
-import 'package:hive_io/src/object/hive_list_impl.dart';
 import 'package:mocktail/mocktail.dart';
 
 // Mocks
@@ -20,10 +19,6 @@ class MockStorageBackend extends Mock implements StorageBackend {}
 class MockKeystore extends Mock implements Keystore {}
 
 class MockHiveImpl extends Mock implements HiveImpl {}
-
-class MockHiveList extends Mock implements HiveList {}
-
-class MockHiveListImpl extends Mock implements HiveListImpl {}
 
 class MockRandomAccessFile extends Mock implements RandomAccessFile {}
 

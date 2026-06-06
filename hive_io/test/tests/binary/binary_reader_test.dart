@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:hive_io/hive_io.dart';
 import 'package:hive_io/src/binary/binary_reader_impl.dart';
 import 'package:hive_io/src/binary/frame.dart';
-import 'package:hive_io/src/object/hive_list_impl.dart';
 import 'package:hive_io/src/registry/type_registry_impl.dart';
 import 'package:test/test.dart';
 
@@ -325,31 +324,6 @@ void main() {
       });
     });
 
-    group('.readHiveList()', () {
-      test('read length', () {
-        final br = fromBytes([
-          2, 0, 0, 0, //
-          3, 66, 111, 120, //
-          0, 123, 0, 0, 0, //
-          1, 2, 104, 105, //
-        ]);
-        final hiveList = br.readHiveList() as HiveListImpl;
-        expect(hiveList.boxName, 'Box');
-        expect(hiveList.keys, [123, 'hi']);
-      });
-
-      test('given length', () {
-        final br = fromBytes([
-          3, 66, 111, 120, //
-          0, 123, 0, 0, 0, //
-          1, 2, 104, 105, //
-        ]);
-        final hiveList = br.readHiveList(2) as HiveListImpl;
-        expect(hiveList.boxName, 'Box');
-        expect(hiveList.keys, [123, 'hi']);
-      });
-    });
-
     group('.readFrame()', () {
       final nullFramesBytes = <Uint8List>[
         // availableBytes < 4
@@ -593,19 +567,6 @@ void main() {
           ..setUint8(23, FrameValueType.nullT);
         br = fromByteData(byteData);
         expect(br.read(), [12345, 123, null]);
-      });
-
-      test('HiveList', () {
-        final br = fromBytes([
-          FrameValueType.hiveListT, 2, 0, 0, 0, //
-          3, 66, 111, 120, //
-          0, 123, 0, 0, 0, //
-          1, 2, 104, 105, //
-        ]);
-
-        final hiveList = br.read() as HiveListImpl;
-        expect(hiveList.boxName, 'Box');
-        expect(hiveList.keys, [123, 'hi']);
       });
     });
   });
