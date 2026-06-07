@@ -159,10 +159,7 @@ void main() {
 
       expect(
         constantToString(value),
-        allOf([
-          contains("'a': 1"),
-          contains("'b': 2"),
-        ]),
+        allOf([contains("'a': 1"), contains("'b': 2")]),
       );
     });
 
