@@ -33,7 +33,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.4.0
-  hive_generator_io: ^3.3.0
+  hive_generator_io: ^3.3.1
 ```
 
 ### Generate type adapters
