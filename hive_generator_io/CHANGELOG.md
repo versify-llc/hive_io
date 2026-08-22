@@ -1,3 +1,7 @@
+### 3.4.0
+
+- Upgrade packages for dart 3.13
+
 ### 3.3.1
 
 - Allow `analyzer` version `10.0.0`

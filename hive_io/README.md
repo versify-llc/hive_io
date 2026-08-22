@@ -3,10 +3,10 @@
 Hive is a lightweight and blazing fast key-value database written in pure Dart.
 
 - 🚀 Built for mobile and desktop
-- 🔒 Encryption built in
+- 🔒 Encryption
 - 🎈 No native dependencies
 
-👉 The original Hive project is abandoned. Hive_IO is a fork (minus web support) to keep everything working with newer versions of Flutter and Dart. I'm not planning to add any new features. Checkout [hive_ce](https://pub.dev/packages/hive_ce) if you're looking for:
+👉 The original Hive project is abandoned. `hive_io` is a fork that keeps the project running with newer versions of Flutter and Dart. I'm not planning to add any new features. See [hive_ce](https://pub.dev/packages/hive_ce) if you're looking for:
 
 - Multi-isolate support
 - Web support
@@ -28,12 +28,12 @@ Add the `hive_io` packages to your `pubspec.yaml`
 
 ```yaml
 dependencies:
-  hive_io: ^3.3.0
-  hive_flutter_io: ^3.3.0
+  hive_io: ^3.4.0
+  hive_flutter_io: ^3.4.0
 
 dev_dependencies:
-  build_runner: ^2.4.0
-  hive_generator_io: ^3.3.1
+  build_runner: ^2.15.1
+  hive_generator_io: ^3.4.0
 ```
 
 ### Generate type adapters
@@ -66,7 +66,7 @@ class Person {
 Run `build_runner` to generate Hive types:
 
 ```bash
-dart run build_runner build --delete-conflicting-outputs
+dart run build_runner build
 ```
 
 ### Initialize Hive
@@ -78,13 +78,13 @@ Future<void> main() async {
   ...
 
   // Initialize Hive. This MUST be called first.
-  await Hive.initFlutter(null);
+  await Hive.initFlutter();
 
-  // Register all of your type adapters next.
+  // Register all of your type adapters.
   Hive.registerAdapter(PersonAdapter());
 
-  // Box needs to be opened before you can interact with it.
-  await Hive.openBox<Person>('person');
+  // Each box needs to be opened before you can interact with them.
+  final personBox = await Hive.openBox<Person>('person');
 
   ...
 
@@ -132,7 +132,7 @@ class SettingsPage extends StatelessWidget {
 
 ### Pure Dart setup
 
-`hive_io` has no Flutter dependency, so you can use it in a plain Dart app too. Skip `hive_flutter_io` and initialize Hive with a directory of your choice:
+`hive_io` has no Flutter dependency, so you can use it in plain Dart too. Skip `hive_flutter_io` and initialize Hive with a directory of your choice:
 
 ```dart
 Future<void> main() async {
@@ -189,7 +189,6 @@ A box behaves a lot like a map. Writes are asynchronous, but the new values are 
 ```dart
 box.put('key', value);           // add or update
 box.putAll({'a': v1, 'b': v2});  // batch write
-final id = await box.add(value); // auto-increment integer key
 
 box.get('key', defaultValue: fallback);
 box.getAt(0);                    // by index

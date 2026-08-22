@@ -1,3 +1,8 @@
+### 3.4.0
+
+- Upgrade packages for flutter 3.47, dart 3.13
+- `initFlutter()` sub directory parameter is optional
+
 ### 3.3.0
 
 - Upgrade packages for flutter 3.44, dart 3.12

@@ -8,7 +8,7 @@ This is a **maintenance fork** of the abandoned [Hive](https://pub.dev/packages/
 
 - Published as three separate packages on pub.dev under the [versify-llc/hive_io](https://github.com/versify-llc/hive_io) org
 - **No web support** (removed from upstream fork)
-- Dart SDK: `^3.8.0`
+- Dart SDK: `^3.10.0`
 - Linter: [`package:lint`](https://pub.dev/packages/lint) via each package's `analysis_options.yaml`
 
 ## Repository layout

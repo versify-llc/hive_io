@@ -1,3 +1,8 @@
+### 3.4.0
+
+- Upgrade packages for dart 3.13
+- Update README
+
 ### 3.3.0
 
 - **BREAKING**: Remove `HiveList`/`HiveCollection` API

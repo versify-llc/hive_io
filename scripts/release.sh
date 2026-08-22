@@ -147,15 +147,15 @@ publish_package() {
 
   if ! command -v "$tool" >/dev/null 2>&1; then
     warn "\`$tool\` is not on your PATH. Publish $pkg manually:"
-    warn "    (cd $pkg && $tool pub publish)"
+    warn "    (cd $pkg && dart pub publish)"
     return 0
   fi
 
   if ask_yes_no "Publish $pkg $version to pub.dev?" n; then
-    ( cd "$pkg" && "$tool" pub publish )
+    ( cd "$pkg" && dart pub publish )
     ok "Published $pkg $version"
   else
-    warn "Skipped publishing $pkg. Run \`$tool pub publish\` in $pkg/ when ready."
+    warn "Skipped publishing $pkg. Run \`dart pub publish\` in $pkg/ when ready."
   fi
 }
 
